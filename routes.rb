@@ -7,53 +7,45 @@ Rails.application.routes.draw do
       end
     end
   end
-  # Users
-  # Get Users List By Role. Search in users based on name. Will Contain Custom User Fields.(allowed only for Head Counselor Auth Token)
+  # Login
+  # Sign up User. Req: (Name, Email, Username, Mobile, OAuth/Password, Age). Response: ()
   post "sign_up" => "login#sign_up"
-  # Get Users List By Role. Search in users based on name. Will Contain Custom User Fields.(allowed only for Head Counselor Auth Token)
+  # Login User. Req: (Login(Email/Username/Mobile), OAuth/Password). Response: (Auth token)
   post "login" => "login#login"
-  # Get Users List By Role. Search in users based on name. Will Contain Custom User Fields.(allowed only for Head Counselor Auth Token)
+  # Logout User. Req: (Auth token). Response: ()
   post "logout" => "login#logout"
-  # Get Users List By Role. Search in users based on name. Will Contain Custom User Fields.(allowed only for Head Counselor Auth Token)
-  post "password/forgot" => "passwords#forgot"
-  # Get Users List By Role. Search in users based on name. Will Contain Custom User Fields.(allowed only for Head Counselor Auth Token)
-  post "password/modify" => "passwords#modify"
-  # Get Users List By Role. Search in users based on name. Will Contain Custom User Fields.(allowed only for Head Counselor Auth Token)
-  post "password/reset" => "passwords#reset"
-
-
-  # Get Users List By Role. Search in users based on name. Will Contain Custom User Fields.(allowed only for Head Counselor Auth Token)
-  post "user_list" => "users#index"
-  # Get User Details. Response will Contain Custom User Fields (User AuthToken needed)
-  get "user" => "users#me"
-  # Get User Details by username. Response will Contain Custom User Fields (User AuthToken needed)
-  get "user/fetch" => "users#fetch"
-  #P Create User, Increase Trust Level, Activate User, Generate Activ Token, Send Email 
-  post "user" => "users#create"
-  #P User Sign Up . Create User, Increase Trust Level, Generate Activ Token, Send Email
-  post "user/sign_up" => "users#sign_up"
-  # User Invite . Create User, Increase Trust Level, Generate Activ Token, Send Email. Ony for Counselor
-  post "user/invite" => "users#invite"
-  #P Activate User based on username and activ token
-  post "user/activate" => "users#activate"
-  # User Login(Will take username or email)
-  post "user/login" => "users#login"
-  # Image Upload(Will take username or email)
-  post "uploads" => "users#file_upload"
-  # Update User Details. Response will Contain Custom User Fields (User AuthToken needed)
-  put "user" => "users#update"
-  # Delete User Details (User AuthToken needed)
-  delete "user" => "users#delete"
+  # Activate User by verifying OTP. Req: (Login, OTP). Response: ()
+  post "activate" => "login#activate"
   
-  # # Passwords
-  # Password Forgot. Needs only email/username.
-  post "passwords/forgot" => "passwords#forgot"
-  #P Password Update. (User AuthToken OR User Acti Token needed)
-  post "passwords/update" => "passwords#update"
-  # Password Update. Needs Email Token sent through Token.
-  post "passwords/reset" => "passwords#update"
+  # Passwords
+  # Forgot Password. Req: (Login). Response: ()
+  post "password/forgot" => "passwords#forgot"
+  # Reset Password. Req: (Username, OTP). Response: ()
+  get "password/reset" => "passwords#reset"
+  # Modify Password. Req: (Login, New Password). Response: (Auth Token)
+  put "password/modify" => "passwords#modify"
+
+  # Users
+  # Get Users List using search, filter and pagination. Req: (Admin Auth token, Role, Standard, Region, TargetExam, Query, Board, Page, Limit). Response: (User Array)
+  get "users" => "users#index"
+  # Create User. Req: (Admin Auth token, Name, Email, Username, Mobile, OAuth/Password, Age). Response: (Auth token)
+  post "user" => "users#create"
+  # Get User Details. Req: (Admin Auth token, id, login)
+  get "user" => "users#details"
+  # Get User Details. Req: (Auth token)
+  get "user/me" => "users#me"
+  # Updates User Details. Req: (Auth token)
+  put "user" => "users#update"
+  # User Invite . Create User
+  post "user/invite" => "users#invite"
+  # Image Upload(Will take username or email)
+  post "photo/profile" => "users#photo_upload"
+  # Delete User Req: (Admin AuthToken, User Id)
+  delete "user" => "users#delete"
+
+  # CRUD Operations https://www.railstutorial.org/book/updating_and_deleting_users
   # Categories
-  # Get List of Categories (User AuthToken needed)
+  # Get List of Categories based on page, standard(User AuthToken needed)
   get "categories" => "categories#index"
   # Get Details of single Category based on category_id (User AuthToken needed)
   get "category" => "categories#detail"
@@ -63,50 +55,37 @@ Rails.application.routes.draw do
   put "category" => "categories#update"
   # Updates Category (Admin AuthToken needed)
   delete "category" => "categories#delete"
-  
-  # Questions
-  # Get List of Questions Paginated(User AuthToken needed)
-  get "questions" => "questions#index"
-  # Get Details of a question(User AuthToken needed)
-  get "question" => "questions#detail"
-  # Creates a question(User AuthToken needed)
-  post "question" => "questions#create"
-  # Updates a question(User AuthToken needed)
-  put "question" => "questions#update"
-  # Deletes a question(User AuthToken needed)
-  delete "question" => "questions#delete"
-  
-  # Answers
-  # Get List of answers Paginated(User AuthToken needed)
-  get "answers" => "answers#index"
-  # Get Details of a answer(User AuthToken needed)
-  get "answer" => "answers#detail"
-  # Creates a answer Or reply to answer(User AuthToken needed)
-  post "answer" => "answers#create"
-  # Updates a answer(User AuthToken needed)
-  put "answer" => "answers#update"
-  # Deletes a answer(User AuthToken needed)
-  delete "answer" => "answers#delete"
-  # Likes a answer(User AuthToken needed)
-  post "answer/like" => "answers#like"
-  # Unlikes a answer(User AuthToken needed)
-  post "answer/unlike" => "answers#unlike"
-  # Unlikes a answer(User AuthToken needed)
-  get "answer/replies" => "answers#replies"
 
-  #Notifications
-  # Get All Notifications
-  get "notifications" => "notifications#index"
-  # Get All Responses
-  get "notifications/responses" => "notifications#responses"
-  # Get All Likes Received
-  get "notifications/likes_received" => "notifications#likes_received"
-  # Mark all notifications received
-  put "notifications/mark_read" => "notifications#mark_read"
-  # Mark a notification received
-  put "notification/mark_read" => "notifications#mark_single_read"
-  # Delete a notification
-  delete "notification" => "notifications#delete"
+  # Games
+  # Get homepage personalized to each user. Response(List of Question Types with all its acad_entities)
+  get "homepage" => "question_types/homepage"
+  # Get List of Question Types based on standard, page and limit(User AuthToken needed)
+  get "games" => "question_types#index"
+  # Get Details of single Question Type based on game_id (User AuthToken needed)
+  get "game" => "question_types#detail"
+
+  # Game Session
+  # Starts Game Session Req: (AuthToken, GameHolder Id) Response: (List of Game Question Objects)
+  post "session/start" => "game_sessions#start"
+  # Ends Game Session Req: (AuthToken, Session Id, Session Attempt Object) Response: (List of RegionPercentileScores of Gameholder for regions)
+  put "session/end" => "game_sessions#end"
+
+  # Scores
+  # Gets Scores Req: (Auth Token) Response: (Overall Score)
+  get "score" => "scores/overall"
+  # Gets Streamwise/ Chapterwise Scores Req: (Auth Token) Response: (List of chapters with AcadEntityScore)
+  get "scores/chapterwise" => "scores/chapter_list"
+  # Gets Detailed Chapterwise Scores Req: (Auth Token, ChapterId) Response: (Best Score, Rank, Last 10 Session Score Objects)
+  get "scores/chapterwise_detailed" => "scores/chapter_detailed"
+
+  
+  # Rankings
+  # Gets Rankings Req: (Auth Token) Response: (Overall Score)
+  get "score" => "rankings/overall"
+  # Gets Streamwise/ Chapterwise Rankings Req: (Auth Token) Response: (List of chapters with AcadEntityScore)
+  get "rankings/chapterwise" => "rankings/chapter_list"
+  # Gets Detailed Chapterwise Rankings Req: (Auth Token, ChapterId) Response: (Best Score, Rank, Last 10 Session Score Objects)
+  get "rankings/chapterwise_detailed" => "rankings/chapter_detailed"
 
   # Get Feedback
   post "feedback" => "notifications#feedback"

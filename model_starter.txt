@@ -101,3 +101,6 @@ rails generate model UserExamDifficultyBreakup correct:integer incorrect:integer
 
 //Per exam_attempt, per entity, :effective score (out of 0 and 1)
 //:score name
+
+//TODO role model
+//TODO User field: activated
