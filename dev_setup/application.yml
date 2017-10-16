@@ -1,0 +1,13 @@
+SECRET_KEY_BASE: "0ff4c99a2dede340ee89a19296d6daf731e5624e8c1566c00e8242a59ef6ce20588a762f037da53620aaac50a15e8c24ad7f5edcc273f02035b365af54224c71"
+db_staging_host: ''
+db_prod_host: ''
+github_username: ''
+github_password: ''
+development:
+  # chatbot_host: 'http://localhost:7000/'
+
+staging:
+  chatbot_host: 'http://18.221.40.110'
+
+production:
+  chatbot_host: 'http://chatconnecpath.tk/'

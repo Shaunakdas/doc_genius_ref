@@ -1,0 +1,50 @@
+Login Call:
+{
+"name":"",
+"email":"",
+"oauth":"",
+"number":"",
+"standard":""
+}
+
+OTP Check Call:
+{
+	"oauth":"",
+	"otp":""
+}
+
+Game Submit:
+{
+	"user_id":"",
+	"session_attempt_obj":{
+		"time_taken":,
+		"score":,
+		"passed":,
+		"failed":,
+		"seen":,
+		"game_obj_list":[
+		{
+			"game_id":,
+			"correct_count":,
+			"incorrect_count":,
+			"seen_count":,
+			"time_taken":,
+			"score":,
+			"passed":,	
+			"failed":,	
+			"seen":,	
+		},
+		{
+			"game_id":,
+			"correct_count":,
+			"incorrect_count":,
+			"seen_count":,
+			"time_taken":,
+			"score":,
+			"passed":,	
+			"failed":,	
+			"seen":,
+		}
+		]
+	}
+}

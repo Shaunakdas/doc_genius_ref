@@ -1,0 +1,15 @@
+rails _5.0.1_ new doc_genius_starter
+cd doc_genius_starter
+bundle update
+bundle install --without production
+mkdir scripts
+cd scripts
+touch model_starter.txt
+touch terminal_command_list.txt
+git init
+git add -A
+git commit -m "Initialize repository"
+git remote add origin https://github.com/Shaunakdas/doc_genius_starter.git
+git push -u origin master
+
+rake db:migrate
