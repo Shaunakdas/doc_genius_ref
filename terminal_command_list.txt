@@ -1,5 +1,5 @@
-rails _5.0.1_ new doc_genius_starter
-cd doc_genius_starter
+rails new doc_genius_manager -T --api
+cd doc_genius_manager
 bundle update
 bundle install --without production
 mkdir scripts

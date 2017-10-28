@@ -8,7 +8,7 @@
 # server "db.example.com", user: "deploy", roles: %w{db}
 
 
-server 'admin_stage_t2', user: 'ubuntu', roles: %w{app web db}
+server 'docgenius_stage_t2', user: 'ubuntu', roles: %w{app web db}
 
 set :default_env, {
   'SECRET_KEY_BASE' => '0ff4c99a2dede340ee89a19296d6daf731e5624e8c1566c00e8242a59ef6ce20588a762f037da53620aaac50a15e8c24ad7f5edcc273f02035b365af54224c71',

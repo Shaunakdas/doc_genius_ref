@@ -32,7 +32,13 @@ Things covered:
 * [Copy file to remote](https://stackoverflow.com/a/20943748) How to handle Permission denied(publickey) issue while scp
 * Ruby version
 2.3.0
+* [Setting exact Rails version](https://stackoverflow.com/a/23748516/3305302)
 * Checking for PID of hung proces running on <PORT> (eg. 3000)
+* [Warden Error with devise rspec and controller testing](https://stackoverflow.com/questions/41910712/helper-devise-could-not-find-the-wardenproxy-instance-on-request-environmen)
+
+* [record.save! saving null values](https://stackoverflow.com/a/16661084/3305302)
+* [Factory Girl starter](https://devhints.io/factory_girl)
+* [using sequence as column in rails in factory girls](https://stackoverflow.com/questions/12324842/how-to-initialize-a-column-named-sequence-with-factorygirl)
 ```
 lsof -i tcp:<PORT>
 Ps -ef | grep <PID>
@@ -143,3 +149,13 @@ change_column :table_name, :field_name, :decimal, :precision => 10, :scale => 2
 
 ## Best Practices
 ### [Sitepoint Reference](https://www.sitepoint.com/10-ruby-on-rails-best-practices-3/)
+### [Social Networking Gems in Rails](https://medium.com/rails-ember-beyond/how-to-build-a-social-network-using-rails-eb31da569233)
+### [Login using jwt and devise](https://www.sitepoint.com/introduction-to-using-jwt-in-rails/)
+### [Devise Authentication in depth](https://www.sitepoint.com/devise-authentication-in-depth/)
+### [OmniAuth jwt](https://www.sitepoint.com/rails-authentication-oauth-2-0-omniauth/)
+### [Adding Default Role](https://github.com/plataformatec/devise/wiki/How-To:-Add-a-default-role-to-a-User)
+### [Serialization and Versioning](https://sourcey.com/building-the-prefect-rails-5-api-only-app/#versioning-your-api)
+### [Sitepoint Article on Serialization. Refer the example](https://www.sitepoint.com/active-model-serializers-rails-and-json-oh-my/)
+### [Best praticses of Rails](https://rails-bestpractices.com/)
+### [Devise Rails and Mobile Verification](http://fullstackstanley.com/read/verifying-mobile-phone-numbers-with-rails-devise-and-twilio)
+### [Polymorphic controller DRY method](http://karimbutt.github.io/blog/2015/01/03/step-by-step-guide-to-polymorphic-associations-in-rails/)

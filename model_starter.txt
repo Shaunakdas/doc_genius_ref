@@ -1,46 +1,52 @@
-rails generate model Standard name:string code:string sequence:integer
-rails generate model Subject name:string code:string
-rails generate model Stream name:string code:string sequence:integer subject:references
-rails generate model Chapter name:string code:string seq_stream:integer seq_standard:integer subject:references stream:references 
-rails generate model Topic name:string code:string sequence:integer chapter:references
-rails generate model SubTopic name:string code:string sequence:integer topic:references
-rails generate model QuestionType name:string code:string sequence:integer image_url:string sub_topic:references
+rails new doc_genius_manager -T --api
+# Academic Management
+rails generate model Standard name:string slug:string:uniq:uniq sequence:integer
+rails g controller Api::V1::Standards
+rails g serializer Api::V1::standard
+rails generate model Subject name:string slug:string:uniq
+rails generate model Stream name:string slug:string:uniq sequence:integer subject:references
+rails generate model Chapter name:string slug:string:uniq sequence_stream:integer sequence_standard:integer standard:references stream:references 
+rails generate model Topic name:string slug:string:uniq sequence:integer chapter:references
+rails generate model SubTopic name:string slug:string:uniq sequence:integer topic:references
+rails generate model QuestionType name:string slug:string:uniq sequence:integer image_url:string sub_topic:references
 
-rails generate model RankName code:string sequence:integer display_text:string explainer:string 
 
-rails generate model GameHolder name:string code:string sequence:integer game_type:string image_url:string latest_sequence:integer game_count:integer question_type:references rank_name:references
+# Game Management
+rails generate model RankName slug:string:uniq sequence:integer display_text:string explainer:string 
 
+rails generate model DifficultyLevel name:string slug:string:uniq sequence:integer value:integer
+rails generate model Benefit name:string slug:string:uniq explainer:string sequence:integer image_url:string 
+
+rails generate model WorkingRule name:string slug:string:uniq sequence:integer question_text:string difficulty_level:references
+# TODO
 rails generate model AutoQuestion question_tag:string answer_tag:string question_type:references
-
-rails generate model GameSession attempt_date:date game_holder:references
-
-rails generate model DifficultyLevel name:string code:string sequence:integer value:integer
-rails generate model Benifit code:string title:string explainer:string sequence:integer image_url:string 
-
-rails generate model WorkingRule name:string code:string sequence:integer question_text:string game_holder:references difficulty_level:references
-rails generate model PracticeQuestion name:string code:string sequence:integer question_text:string option_text:string game_holder:references auto_question:references difficulty_level:references
-
-rails generate model WordQuestion text:string hint:string explaination:string sequence:integer correct_count:integer  game_holder:references difficulty_level:references
-
+# TODO
+rails generate model PracticeQuestion name:string slug:string:uniq sequence:integer question_text:string option_text:string auto_question:references difficulty_level:references
+# TODO
+rails generate model WordQuestion name:string slug:string:uniq  text:string hint:string explaination:string sequence:integer correct_count:integer  difficulty_level:references
+# TODO
 rails generate model AnswerOption text:string correct:boolean word_question:references
 
+rails generate model GameHolder name:string slug:string:uniq sequence:integer game:references{polymorphic}:index image_url:string  question_type:references
 
-rails generate model User first_name:string last_name:string email:string encrypted_password:string reset_password_token:string reset_password_sent_at:date sign_in_count:integer current_sign_in_at:date last_sign_in_at:date current_sign_in_ip:string last_sign_in_ip:string remember_created_at:date confirmation_token:string confirmed_at:date confirmation_sent_at:date
+rails generate model GameSession start:datetime finish:datetime game_holder:references user:references
 
-rails generate model UserPhoneNumber number:string user:references
-rails generate model AuthToken number:string auth_token:string otp:integer device_id:string user:references user_phone_number:references
+rails g model Role name:string slug:string:uniq
 
-rails generate model UserAcadProfile acad_entity:references{polymorphic}:index user:references
+rails generate model User first_name:string last_name:string role:references mobile_number:string verification_code:string is_verified:boolean sex:integer birth:date registration_method:integer
 
-rails generate model GameAttempt game:references{polymorphic}:index game_session:references user:references
-rails generate model AttemptScore value:decimal time_taken:decimal correct_count:integer incorrect_count:integer seen:boolean passed:boolean failed:boolean game_attempt:references game_holder:references
-rails generate model AcadEntityScore average_value:decimal max_value:decimal last_value:decimal time_spent:decimal passed_count:integer failed_count:integer seen_count:integer percentile:decimal acad_entity:references{polymorphic}:index attempt_score:references
+# rails generate model UserPhoneNumber user:references phone_number:string pin:string verified:boolean
 
-rails generate model Region code:string display_text:string region_type:string parent_region:references
+rails generate model AcadProfile acad_entity:references{polymorphic}:index user:references
+
+rails generate model SessionScore value:decimal time_taken:time correct_count:integer incorrect_count:integer seen:boolean passed:boolean failed:boolean game_session:references
+rails generate model AcadEntityScore average:decimal maximum:decimal last:decimal time_spent:time passed_count:integer failed_count:integer seen_count:integer percentile:decimal acad_entity:references{polymorphic}:index session_score:references
+
+rails generate model Region slug:string:uniq name:string region_type:string parent_region:references
 //Remove "foreign_key true"from migration file, t.references :parent_region
 //Add to region.rb 
-has_many :sub_regions, class_name: “Region”, foreign_key: “parent_region_id”
-belongs_to :parent_region, class_name: “Region”
+has_many :sub_regions, class_name: 'Region', foreign_key: 'parent_region_id'
+belongs_to :parent_region, class_name: 'Region'
 
 rails generate model UserRegion registration_date:date user:references region:references
 rails generate model RegionPercentileScore percentile_count:integer score:decimal acad_entity:references{polymorphic}:index region:references
@@ -51,8 +57,8 @@ t.references :acad_entity, polymorphic: true, index: {:name => "index_region_per
 
 
 
-rails generate model Exam name:string sequence:integer exam_date:date code:string
-rails generate model ExamSet name:string sequence:integer exam_date:date code:string exam:references 
+rails generate model Exam name:string sequence:integer exam_date:date slug:string:uniq
+rails generate model ExamSet name:string sequence:integer exam_date:date slug:string:uniq exam:references 
 rails generate model ExamAttempt name:string exam:references exam_set:references user:references
 rails generate model TargetExam name:string 
 

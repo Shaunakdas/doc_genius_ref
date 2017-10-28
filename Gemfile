@@ -7,6 +7,8 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
 
+# Use Devise for User Management
+gem 'devise'
 # More info at https://github.com/lostisland/faraday . Make client in /lib folder,
 # put reference in application_controller and define a @ variable to use everywhere
 gem 'faraday'
@@ -55,6 +57,7 @@ group :development, :test do
   # Factory Girl allows you create objects that you need in your tests
   # which can include default values.
   gem 'factory_girl_rails', '~> 4.5.0'
+  # Need Installation
   gem 'rspec-rails', '~> 3.6'
 end
 

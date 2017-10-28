@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   # Gets Detailed Chapterwise Scores Req: (Auth Token, ChapterId) Response: (Best Score, Rank, Last 10 Session Score Objects)
   get "scores/chapterwise_detailed" => "scores/chapter_detailed"
 
-  
+
   # Rankings
   # Gets Rankings Req: (Auth Token) Response: (Overall Score)
   get "score" => "rankings/overall"
@@ -89,8 +89,4 @@ Rails.application.routes.draw do
 
   # Get Feedback
   post "feedback" => "notifications#feedback"
-
-  #Chats
-  # Send message from chatbot
-  post "chats/send_ai_message" => "chats#send_ai_message"
 end
